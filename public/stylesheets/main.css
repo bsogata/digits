@@ -1,0 +1,9 @@
+.page-content {
+  padding-top: 70px;  /* Move body of page below navbar. */
+}
+
+#header-image {
+  background-image: url("../images/digital-tunnel-wallpaper.jpg");
+  background-size: cover;
+  height: 256px;
+}
