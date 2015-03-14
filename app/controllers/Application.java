@@ -36,9 +36,15 @@ public class Application extends Controller {
    */
   public static Result postContact() {
     Form<ContactFormData> form = Form.form(ContactFormData.class).bindFromRequest();
-    ContactFormData data = form.get();
-    System.out.format("%s %s %s%n", data.firstName, data.lastName, data.phoneNumber);
-    return ok(NewContact.render(form));
+
+    if (form.errors().size() > 0) {
+      return badRequest(NewContact.render(form));
+    }
+    else {
+      ContactFormData data = form.get();
+      System.out.format("%s %s %s%n", data.firstName, data.lastName, data.phoneNumber);
+      return ok(NewContact.render(form));
+    }
   }
 
 }
