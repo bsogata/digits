@@ -1,9 +1,9 @@
 package test;
 
+import models.Contact;
+import models.ContactDB;
 import org.junit.Test;
-import play.data.Form;
 import play.twirl.api.Content;
-import views.formdata.ContactFormData;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.contentAsString;
@@ -30,7 +30,7 @@ public class ApplicationTest {
    */
   @Test
   public void renderTemplate() {
-    Content html = views.html.Index.render("Welcome to the home page.");
+    Content html = views.html.Index.render(ContactDB.getContacts());
     assertThat(contentType(html)).isEqualTo("text/html");
     assertThat(contentAsString(html)).contains("Home");
   }
