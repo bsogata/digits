@@ -2,9 +2,7 @@ package test;
 
 import models.ContactDB;
 import org.junit.Test;
-import play.data.Form;
 import play.twirl.api.Content;
-import views.formdata.ContactFormData;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.contentAsString;
