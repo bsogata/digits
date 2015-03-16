@@ -8,6 +8,7 @@
           <th>First</th>
           <th>Last</th>
           <th>Phone</th>
+          <th>Address</th>
         </tr>
       </thead>
       <tbody>
@@ -16,6 +17,7 @@
             <td>@contact.getFirstName()</td>
             <td>@contact.getLastName()</td>
             <td>@contact.getPhoneNumber()</td>
+            <td>@contact.getAddress()</td>
             <td><a href="@routes.Application.newContact(contact.getId())">Edit</a></td>
           </tr>
         }

@@ -10,6 +10,7 @@ public class Contact {
   private String lastName;
   private String phoneNumber;
   private long id;
+  private String address;
 
   /**
    * Creates a new Contact.
@@ -18,14 +19,16 @@ public class Contact {
    * @param firstName      The String containing the first name of the new Contact.
    * @param lastName       The String containing the last name of the new Contact.
    * @param phoneNumber    The String containing the phone number of the new Contact.
+   * @param address        The String containing the address of the new Contact.
    *
    */
 
-  public Contact(long id, String firstName, String lastName, String phoneNumber) {
+  public Contact(long id, String firstName, String lastName, String phoneNumber, String address) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;
+    this.address = address;
   }
 
   /**
@@ -73,6 +76,17 @@ public class Contact {
   }
 
   /**
+   * Returns the address of this Contact.
+   *
+   * @return A String containing the address of this Contact.
+   *
+   */
+
+  public String getAddress() {
+    return address;
+  }
+
+  /**
    * Indicates whether this is a valid Contact.
    *
    * @return A boolean that is true if this Contact is valid,
@@ -83,6 +97,7 @@ public class Contact {
   public boolean isValid() {
     return (((this.firstName != null) && (this.firstName.length() > 0))
          && ((this.lastName != null) && (this.lastName.length() > 0))
-         && ((this.phoneNumber != null) && (this.phoneNumber.matches("\\d{3}-\\d{3}-\\d{4}"))));
+         && ((this.phoneNumber != null) && (this.phoneNumber.matches("\\d{3}-\\d{3}-\\d{4}")))
+         && ((this.address != null) && (this.address.length() >= 24)));
   }
 }

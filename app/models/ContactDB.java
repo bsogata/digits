@@ -27,7 +27,8 @@ public class ContactDB {
     // If not in the map, add new Contact
     if (toAdd.isValid() && toAdd.getId() == 0) {
       long id = ContactDB.contacts.size() + 1;
-      ContactDB.contacts.put(id, new Contact(id, toAdd.getFirstName(), toAdd.getLastName(), toAdd.getPhoneNumber()));
+      ContactDB.contacts.put(id, new Contact(id, toAdd.getFirstName(), toAdd.getLastName(),
+                                             toAdd.getPhoneNumber(), toAdd.getAddress()));
       return true;
     }
     // Else if valid and in the map, update value
