@@ -7,6 +7,10 @@
     @form(routes.Application.postContact()) {
       <div class="form-group @if(contactForm("firstName").hasErrors) {has-error}">
         <label for="first-name">First Name</label>
+        <input type="hidden"
+               id="@contactForm("id").id"
+               name="@contactForm("id").name"
+               value="@contactForm("id").value">
         <input type="text"
                class="form-control"
                id="@contactForm("firstName").id"

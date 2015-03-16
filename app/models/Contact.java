@@ -9,20 +9,34 @@ public class Contact {
   private String firstName;
   private String lastName;
   private String phoneNumber;
+  private long id;
 
   /**
    * Creates a new Contact.
    *
+   * @param id             The long equal to the ID for the new Contact.
    * @param firstName      The String containing the first name of the new Contact.
    * @param lastName       The String containing the last name of the new Contact.
    * @param phoneNumber    The String containing the phone number of the new Contact.
    *
    */
 
-  public Contact(String firstName, String lastName, String phoneNumber) {
+  public Contact(long id, String firstName, String lastName, String phoneNumber) {
+    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;
+  }
+
+  /**
+   * Returns the ID of this Contact.
+   *
+   * @return A long equal to the ID number of this Contact.
+   *
+   */
+
+  public long getId() {
+    return this.id;
   }
 
   /**

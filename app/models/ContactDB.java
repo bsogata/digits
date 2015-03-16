@@ -1,7 +1,9 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Stores the Contacts for this application.
@@ -9,10 +11,10 @@ import java.util.List;
  * Created by Branden Ogata on 3/14/2015.
  */
 public class ContactDB {
-  private static List<Contact> contacts = new ArrayList<>();
+  private static Map<Long, Contact> contacts = new HashMap<>();
 
   /**
-   * Adds the given Contact to the list if valid.
+   * Adds the given Contact to this ContactDB if valid.
    *
    * @param toAdd    The Contact to add to this ContactDB.
    *
@@ -22,8 +24,15 @@ public class ContactDB {
    */
 
   public static boolean addContact(Contact toAdd) {
-    if (toAdd.isValid()) {
-      ContactDB.contacts.add(toAdd);
+    // If not in the map, add new Contact
+    if (toAdd.isValid() && toAdd.getId() == 0) {
+      long id = ContactDB.contacts.size() + 1;
+      ContactDB.contacts.put(id, new Contact(id, toAdd.getFirstName(), toAdd.getLastName(), toAdd.getPhoneNumber()));
+      return true;
+    }
+    // Else if valid and in the map, update value
+    else if (toAdd.isValid()) {
+      ContactDB.contacts.put(toAdd.getId(), toAdd);
       return true;
     }
     else {
@@ -39,6 +48,20 @@ public class ContactDB {
    */
 
   public static List<Contact> getContacts() {
-    return ContactDB.contacts;
+    return new ArrayList<Contact>(ContactDB.contacts.values());
+  }
+
+  /**
+   * Returns the Contact with the given ID number.
+   *
+   * @param id    The long equal to the ID to search for.
+   *
+   * @return A Contact that is at the given ID,
+   *         null if no match was found.
+   *
+   */
+
+  public static Contact getContact(long id) {
+    return ContactDB.contacts.get(id);
   }
 }
