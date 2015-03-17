@@ -23,7 +23,9 @@ public class Application extends Controller {
   }
 
   /**
-   * Returns newContact, a simple example of a second page to illustrate navigation.
+   * Returns the New Contact page.
+   *
+   * @param id    The long equal to the ID of the contact; 0 if new, else an edited contact.
    * @return The NewContact.
    */
   public static Result newContact(long id) {
@@ -45,7 +47,7 @@ public class Application extends Controller {
     }
     else {
       ContactFormData data = form.get();
-      ContactDB.addContact(new Contact(0, data.firstName, data.lastName, data.phoneNumber));
+      ContactDB.addContact(new Contact(data.id, data.firstName, data.lastName, data.phoneNumber));
       System.out.format("%s %s %s%n", data.firstName, data.lastName, data.phoneNumber);
       return ok(NewContact.render(form));
     }
