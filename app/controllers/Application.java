@@ -51,4 +51,17 @@ public class Application extends Controller {
     }
   }
 
+  /**
+   * Removes the given contact and returns the index page.
+   *
+   * @param id    The long equal to the ID of the Contact to remove.
+   *
+   * @return The index page.
+   *
+   */
+  public static Result deleteContact(long id) {
+    ContactDB.deleteContact(id);
+    return ok(Index.render(ContactDB.getContacts()));
+  }
+
 }

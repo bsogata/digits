@@ -65,4 +65,15 @@ public class ContactDB {
   public static Contact getContact(long id) {
     return ContactDB.contacts.get(id);
   }
+
+  /**
+   * Deletes the Contact with the given ID number.
+   *
+   * @param id    The long equal to the ID of the Contact to delete.
+   *
+   */
+
+  public static void deleteContact(long id) {
+    ContactDB.contacts.remove(id);
+  }
 }
