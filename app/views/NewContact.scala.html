@@ -6,7 +6,7 @@
   <div class="container">
     @form(routes.Application.postContact()) {
       <div class="form-group @if(contactForm("firstName").hasErrors) {has-error}">
-        <label for="first-name">First Name</label>
+        <label for="firstName">First Name</label>
         <input type="hidden"
                id="@contactForm("id").id"
                name="@contactForm("id").name"
@@ -20,7 +20,7 @@
         <span class="help-block">@{contactForm("firstName").error.map {error => error.message}}</span>
       </div>
       <div class="form-group @if(contactForm("lastName").hasErrors) {has-error}">
-        <label for="last-name">Last Name</label>
+        <label for="lastName">Last Name</label>
         <input type="text"
                class="form-control"
                id="@contactForm("lastName").id"
@@ -30,7 +30,7 @@
           <span class="help-block">@{contactForm("lastName").error.map {error => error.message}}</span>
       </div>
       <div class="form-group @if(contactForm("phoneNumber").hasErrors) {has-error}">
-        <label for="phone-number">Phone Number</label>
+        <label for="phoneNumber">Phone Number</label>
         <input type="tel"
                class="form-control"
                id="@contactForm("phoneNumber").id"
@@ -50,7 +50,7 @@
         <span class="help-block">@{contactForm("address").error.map {error => error.message}}</span>
       </div>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button id="submit" type="submit" class="btn btn-primary">Submit</button>
     }
   </div>
 }
