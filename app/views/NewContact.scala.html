@@ -1,53 +1,34 @@
 @(contactForm: Form[views.formdata.ContactFormData])
 
+@import views.html.bootstrap3._
 @import helper._
 
 @Main("NewContact") {
   <div class="container">
     @form(routes.Application.postContact()) {
       <div class="form-group @if(contactForm("firstName").hasErrors) {has-error}">
-        <label for="firstName">First Name</label>
         <input type="hidden"
                id="@contactForm("id").id"
                name="@contactForm("id").name"
                value="@contactForm("id").value">
-        <input type="text"
-               class="form-control"
-               id="@contactForm("firstName").id"
-               name="@contactForm("firstName").name"
-               value="@contactForm("firstName").value"
-               placeholder="Enter your first name">
-        <span class="help-block">@{contactForm("firstName").error.map {error => error.message}}</span>
+        @text(contactForm("firstName"),
+              label = "First Name",
+              placeholder = "Enter your first name")
       </div>
       <div class="form-group @if(contactForm("lastName").hasErrors) {has-error}">
-        <label for="lastName">Last Name</label>
-        <input type="text"
-               class="form-control"
-               id="@contactForm("lastName").id"
-               name="@contactForm("lastName").name"
-               value="@contactForm("lastName").value"
-               placeholder="Enter your last name">
-          <span class="help-block">@{contactForm("lastName").error.map {error => error.message}}</span>
+        @text(contactForm("lastName"),
+              label = "Last Name",
+              placeholder = "Enter your last name")
       </div>
       <div class="form-group @if(contactForm("phoneNumber").hasErrors) {has-error}">
-        <label for="phoneNumber">Phone Number</label>
-        <input type="tel"
-               class="form-control"
-               id="@contactForm("phoneNumber").id"
-               name="@contactForm("phoneNumber").name"
-               value="@contactForm("phoneNumber").value"
-               placeholder="Enter your phone number">
-          <span class="help-block">@{contactForm("phoneNumber").error.map {error => error.message}}</span>
+        @text(contactForm("phoneNumber"),
+              label = "Phone Number",
+              placeholder = "Enter your phone number")
       </div>
       <div class="form-group @if(contactForm("address").hasErrors) {has-error}">
-        <label for="address">Address</label>
-        <input type="tel"
-               class="form-control"
-               id="@contactForm("address").id"
-               name="@contactForm("address").name"
-               value="@contactForm("address").value"
-               placeholder="Enter your address">
-        <span class="help-block">@{contactForm("address").error.map {error => error.message}}</span>
+        @text(contactForm("address"),
+              label = "Address",
+              placeholder = "Enter your address")
       </div>
 
       <button id="submit" type="submit" class="btn btn-primary">Submit</button>

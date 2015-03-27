@@ -17,7 +17,7 @@ import static play.test.Helpers.testServer;
  * Runs a server with a fake in-memory database to test the system.
  */
 public class IntegrationTest {
-  private final int PORT = 3333;
+  private static final int PORT = 3333;
 
   /**
    * Check to see that both the index and newContact pages can be retrieved.
