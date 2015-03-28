@@ -1,5 +1,7 @@
 package models;
 
+import views.formdata.TelephoneTypes;
+
 /**
  * A contact in this application.
  *
@@ -11,6 +13,7 @@ public class Contact {
   private String phoneNumber;
   private long id;
   private String address;
+  private String phoneType;
 
   /**
    * Creates a new Contact.
@@ -19,16 +22,18 @@ public class Contact {
    * @param firstName      The String containing the first name of the new Contact.
    * @param lastName       The String containing the last name of the new Contact.
    * @param phoneNumber    The String containing the phone number of the new Contact.
+   * @param phoneType      The String containing the phone type of the new Contact.
    * @param address        The String containing the address of the new Contact.
    *
    */
 
-  public Contact(long id, String firstName, String lastName, String phoneNumber, String address) {
+  public Contact(long id, String firstName, String lastName, String phoneNumber, String address, String phoneType) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;
     this.address = address;
+    this.phoneType = phoneType;
   }
 
   /**
@@ -83,7 +88,18 @@ public class Contact {
    */
 
   public String getAddress() {
-    return address;
+    return this.address;
+  }
+
+  /**
+   * Returns the phone type of this Contact.
+   *
+   * @return A String containing the phone type of this Contact.
+   *
+   */
+
+  public String getPhoneType() {
+    return this.phoneType;
   }
 
   /**
@@ -98,6 +114,7 @@ public class Contact {
     return (((this.firstName != null) && (this.firstName.length() > 0))
          && ((this.lastName != null) && (this.lastName.length() > 0))
          && ((this.phoneNumber != null) && (this.phoneNumber.matches("\\d{3}-\\d{3}-\\d{4}")))
-         && ((this.address != null) && (this.address.length() >= 24)));
+         && ((this.address != null) && (this.address.length() >= 24))
+         && ((this.phoneType != null) && (TelephoneTypes.isType(this.phoneType))));
   }
 }

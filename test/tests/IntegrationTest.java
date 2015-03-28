@@ -71,8 +71,9 @@ public class IntegrationTest {
         String lastName = "Fuse";
         String phoneNumber = "124-816-3264";
         String address = "This is not really an address, just a placeholder.";
+        String phoneType = "Mobile";
 
-        newContact.submitForm(firstName, lastName, phoneNumber, address);
+        newContact.submitForm(firstName, lastName, phoneNumber, address, phoneType);
 
         IndexPage index = new IndexPage(browser.getDriver(), PORT);
         browser.goTo(index);
@@ -81,6 +82,7 @@ public class IntegrationTest {
         assertThat(browser.pageSource()).contains(lastName);
         assertThat(browser.pageSource()).contains(phoneNumber);
         assertThat(browser.pageSource()).contains(address);
+        assertThat(browser.pageSource()).contains(phoneType);
       }
     });
   }

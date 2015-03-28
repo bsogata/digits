@@ -5,6 +5,7 @@ import models.ContactDB;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.formdata.TelephoneTypes;
 import views.html.Index;
 import views.html.NewContact;
 import views.formdata.ContactFormData;
@@ -28,8 +29,10 @@ public class Application extends Controller {
    * @return The NewContact.
    */
   public static Result newContact(long id) {
-    ContactFormData data = (id == 0) ? (new ContactFormData()) : (new ContactFormData(ContactDB.getContact(id)));
-    return ok(NewContact.render((Form<ContactFormData>) Form.form(ContactFormData.class).fill(data)));
+    ContactFormData data = (id == 0) ? (new ContactFormData())
+                                     : (new ContactFormData(ContactDB.getContact(id)));
+    return ok(NewContact.render((Form<ContactFormData>) Form.form(ContactFormData.class).fill(data),
+                                TelephoneTypes.getTypes(data.phoneType)));
   }
 
   /**
@@ -41,13 +44,15 @@ public class Application extends Controller {
     Form<ContactFormData> form = Form.form(ContactFormData.class).bindFromRequest();
 
     if (form.errors().size() > 0) {
-      return badRequest(NewContact.render(form));
+      return badRequest(NewContact.render(form, TelephoneTypes.getTypes()));
     }
     else {
       ContactFormData data = form.get();
-      ContactDB.addContact(new Contact(0, data.firstName, data.lastName, data.phoneNumber, data.address));
-      System.out.format("%s %s %s %s%n", data.firstName, data.lastName, data.phoneNumber, data.address);
-      return ok(NewContact.render(form));
+      ContactDB.addContact(new Contact(0, data.firstName, data.lastName,
+                                       data.phoneNumber, data.address, data.phoneType));
+      System.out.format("%s %s %s %s %s%n", data.firstName, data.lastName, data.phoneNumber,
+                                         data.address, data.phoneType);
+      return ok(NewContact.render(form, TelephoneTypes.getTypes(data.phoneType)));
     }
   }
 
