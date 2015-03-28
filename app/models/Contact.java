@@ -1,5 +1,7 @@
 package models;
 
+import views.formdata.TelephoneTypes;
+
 /**
  * A contact in this application.
  *
@@ -11,24 +13,28 @@ public class Contact {
   private String phoneNumber;
   private long id;
   private String address;
+  private String telephoneType;
 
   /**
    * Creates a new Contact.
    *
-   * @param id             The long equal to the ID for the new Contact.
-   * @param firstName      The String containing the first name of the new Contact.
-   * @param lastName       The String containing the last name of the new Contact.
-   * @param phoneNumber    The String containing the phone number of the new Contact.
-   * @param address        The String containing the address of the new Contact.
+   * @param id               The long equal to the ID for the new Contact.
+   * @param firstName        The String containing the first name of the new Contact.
+   * @param lastName         The String containing the last name of the new Contact.
+   * @param phoneNumber      The String containing the phone number of the new Contact.
+   * @param address          The String containing the address of the new Contact.
+   * @param telephoneType    The String containing the telephone type of the new Contact.
    *
    */
 
-  public Contact(long id, String firstName, String lastName, String phoneNumber, String address) {
+  public Contact(long id, String firstName, String lastName,
+                 String phoneNumber, String address, String telephoneType) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;
     this.address = address;
+    this.telephoneType = telephoneType;
   }
 
   /**
@@ -83,7 +89,18 @@ public class Contact {
    */
 
   public String getAddress() {
-    return address;
+    return this.address;
+  }
+
+  /**
+   * Returns the telephone type of this Contact.
+   *
+   * @return A String containing the telephone type of this Contact.
+   *
+   */
+
+  public String getTelephoneType() {
+    return this.telephoneType;
   }
 
   /**
@@ -98,6 +115,7 @@ public class Contact {
     return (((this.firstName != null) && (this.firstName.length() > 0))
          && ((this.lastName != null) && (this.lastName.length() > 0))
          && ((this.phoneNumber != null) && (this.phoneNumber.matches("\\d{3}-\\d{3}-\\d{4}")))
-         && ((this.address != null) && (this.address.length() >= 24)));
+         && ((this.address != null) && (this.address.length() >= 24))
+         && ((this.telephoneType != null) && (TelephoneTypes.isType(this.telephoneType))));
   }
 }
