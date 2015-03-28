@@ -16,13 +16,12 @@
       @text(contactForm("lastName"),
             label = "Last Name",
             placeholder = "Enter your last name")
-      @text(contactForm("phoneNumber"),
-            label = "Phone Number",
-            placeholder = "Enter your phone number")
-      @bootstrap3.select(contactForm("telephoneType"),
-                         label = "Telephone Type",
-                         optionMap = telephoneTypeMap,
-                         isMultiple = false)
+      @telephone(textField = contactForm("phoneNumber"),
+                 label = "Phone",
+                 placeholder = "Enter your phone number",
+                 selectField = contactForm("telephoneType"),
+                 optionMap = telephoneTypeMap,
+                 isMultiple = false)
       @text(contactForm("address"),
             label = "Address",
             placeholder = "Enter your address")
