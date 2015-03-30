@@ -43,12 +43,19 @@ public class ContactFormData {
   public String address = "";
 
   /**
+   * The phone type of the contact.
+   *
+   */
+  public String telephoneType = "";
+
+
+  /**
    * Creates a new ContactFormData instance.
    *
    */
 
   public ContactFormData() {
-    this(new Contact(0, "", "", "", ""));
+    this(new Contact(0, "", "", "", "", ""));
   }
 
   /**
@@ -64,6 +71,7 @@ public class ContactFormData {
     this.lastName = toCreate.getLastName();
     this.phoneNumber = toCreate.getPhoneNumber();
     this.address = toCreate.getAddress();
+    this.telephoneType = toCreate.getTelephoneType();
   }
 
   /**
@@ -88,6 +96,9 @@ public class ContactFormData {
     }
     if ((this.address == null) || (this.address.length() < 24)) {
       errors.add(new ValidationError("address", "Invalid address"));
+    }
+    if ((this.telephoneType == null) || (!TelephoneTypes.isType(this.telephoneType))) {
+      errors.add(new ValidationError("telephoneType", "Invalid telephone type"));
     }
 
     return (errors.isEmpty()) ? (null) : (errors);
