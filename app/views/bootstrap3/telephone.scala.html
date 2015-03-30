@@ -1,0 +1,30 @@
+@(textField: Field, label: String = "CHANGEME", placeholder: String = "", textHelp: String = "",
+  selectField: Field, optionMap: Map[String, Boolean], isMultiple: Boolean, selectHelp: String = "")
+
+  <div class="form-group @if(textField.hasErrors || selectField.hasErrors) {has-error}">
+    <label class="col-sm-2 control-label" for="@textField.id">@label</label>
+    <div class="col-sm-7">
+      <input type="text"
+             class="form-control"
+             id="@textField.id"
+             name="@textField.name"
+             value="@textField.value.getOrElse("")"
+             placeholder="@placeholder" />
+      <span class="help-block">@textHelp</span>
+      <span class="help-block">@{textField.error.map { error => error.message }}</span>
+    </div>
+
+    <div class="col-sm-3">
+      <select class="form-control @if(textField.hasErrors && !selectField.hasErrors) {dummy-help-block}"
+              id="@selectField.id"
+              name="@if(isMultiple) {@(selectField.name + "[]")} else {@selectField.name}"
+              @if(isMultiple) {multiple="multiple"}>
+              @if(!isMultiple) {<option class="blank" value="">Please select a value</option>}
+              @for((optionName, isSelected) <- optionMap) {
+                <option id="@optionName" value="@optionName" @if(isSelected) {selected}>@optionName</option>
+              }
+      </select>
+      <span class="help-block">@selectHelp</span>
+      <span class="help-block">@{selectField.error.map { error => error.message }}</span>
+    </div>
+  </div>
