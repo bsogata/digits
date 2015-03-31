@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class ContactDB {
   private static Map<Long, Contact> contacts = new HashMap<>();
-  private static long lastId = 1;
+  private static long lastId = 5;
 
   /**
    * Adds the given Contact to this ContactDB if valid.
