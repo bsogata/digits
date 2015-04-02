@@ -130,7 +130,7 @@ public class Contact {
   public String getFormattedDietTypes() {
     String s = "";
   
-    for(String type : this.dietTypes) {
+    for (String type : this.dietTypes) {
       s += type + ", ";
     }
 

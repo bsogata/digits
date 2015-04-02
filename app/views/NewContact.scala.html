@@ -7,10 +7,7 @@
 @Main("NewContact") {
   <div class="container">
     @form(routes.Application.postContact()) {
-      <input type="hidden"
-             id="@contactForm("id").id"
-             name="@contactForm("id").name"
-             value="@contactForm("id").value">
+      @hidden(contactForm("id"))
       @text(contactForm("firstName"),
             label = "First Name",
             placeholder = "Enter your first name")

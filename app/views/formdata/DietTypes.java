@@ -71,7 +71,7 @@ public class DietTypes {
   }
 
   /**
-   * Indicates whether the given String represents a valid type of diet.
+   * Indicates whether the given List of Strings contains valid types of diet.
    *
    * @param toCheck The String to examine.
    * @return A boolean that is true if the given String matches a valid diet type,
@@ -79,7 +79,6 @@ public class DietTypes {
    */
 
   public static boolean isType(List<String> toCheck) {
-    Map<String, Boolean> dietTypes = getTypes();
     for (String type : toCheck) {
       if (!DietTypes.isType(type)) {
         return false;
