@@ -30,7 +30,7 @@ public class ContactDB {
       long id = lastId++;
       ContactDB.contacts.put(id, new Contact(id, toAdd.getFirstName(), toAdd.getLastName(),
                                              toAdd.getPhoneNumber(), toAdd.getAddress(),
-                                             toAdd.getTelephoneType()));
+                                             toAdd.getTelephoneType(), toAdd.getDietTypes()));
       return true;
     }
     // Else if valid and in the map, update value

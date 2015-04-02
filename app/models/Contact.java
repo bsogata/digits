@@ -1,6 +1,9 @@
 package models;
 
+import views.formdata.DietTypes;
 import views.formdata.TelephoneTypes;
+
+import java.util.List;
 
 /**
  * A contact in this application.
@@ -14,6 +17,7 @@ public class Contact {
   private long id;
   private String address;
   private String telephoneType;
+  private List<String> dietTypes;
 
   /**
    * Creates a new Contact.
@@ -24,17 +28,19 @@ public class Contact {
    * @param phoneNumber      The String containing the phone number of the new Contact.
    * @param address          The String containing the address of the new Contact.
    * @param telephoneType    The String containing the telephone type of the new Contact.
+   * @param dietTypes        The List<String> containing the diet types of the new Contact.
    *
    */
 
-  public Contact(long id, String firstName, String lastName,
-                 String phoneNumber, String address, String telephoneType) {
+  public Contact(long id, String firstName, String lastName, String phoneNumber,
+                 String address, String telephoneType, List<String> dietTypes) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;
     this.address = address;
     this.telephoneType = telephoneType;
+    this.dietTypes = dietTypes;
   }
 
   /**
@@ -104,6 +110,38 @@ public class Contact {
   }
 
   /**
+   * Returns the telephone type of this Contact.
+   *
+   * @return A String containing the telephone type of this Contact.
+   *
+   */
+
+  public List<String> getDietTypes() {
+    return this.dietTypes;
+  }
+
+  /**
+   * Returns the diet type of this Contact.
+   *
+   * @return A String containing the diet type of this Contact.
+   *
+   */
+   
+  public String getFormattedDietTypes() {
+    String s = "";
+  
+    for(String type : this.dietTypes) {
+      s += type + ", ";
+    }
+
+    if (s.length() > 0) {
+      s.substring(0, s.length() - 2);
+    }
+
+    return s;
+  }
+
+  /**
    * Indicates whether this is a valid Contact.
    *
    * @return A boolean that is true if this Contact is valid,
@@ -116,6 +154,7 @@ public class Contact {
          && ((this.lastName != null) && (this.lastName.length() > 0))
          && ((this.phoneNumber != null) && (this.phoneNumber.matches("\\d{3}-\\d{3}-\\d{4}")))
          && ((this.telephoneType != null) && (TelephoneTypes.isType(this.telephoneType)))
-         && ((this.address != null) && (this.address.length() >= 24)));
+         && ((this.address != null) && (this.address.length() >= 24))
+         && ((this.dietTypes != null) && (DietTypes.isType(this.dietTypes))));
   }
 }

@@ -10,6 +10,7 @@
           <th>Phone</th>
           <th>Phone Type</th>
           <th>Address</th>
+          <th>Diet</th>
         </tr>
       </thead>
       <tbody>
@@ -20,6 +21,7 @@
             <td>@contact.getPhoneNumber()</td>
             <td>@contact.getTelephoneType()</td>
             <td>@contact.getAddress()</td>
+            <td>@contact.getFormattedDietTypes()</td>
             <td><a href="@routes.Application.newContact(contact.getId())" class="btn btn-warning">Edit</a></td>
             <td><a href="@routes.Application.deleteContact(contact.getId())" class="btn btn-danger">Delete</a></td>
           </tr>

@@ -19,9 +19,11 @@ public class Global extends GlobalSettings {
 
   @Override
   public void onStart(Application app) {
+/*
     ContactDB.addContact(new Contact(1, "Ira", "Fuse", "124-816-3264", "This is not really an address.", "Home"));
     ContactDB.addContact(new Contact(2, "Dewey", "Havtoo", "124-816-3264", "This is not really an address.", "Mobile"));
     ContactDB.addContact(new Contact(3, "Sandy", "Beech", "124-816-3264", "This is not really an address.", "Work"));
     ContactDB.addContact(new Contact(4, "Millie", "Meter", "124-816-3264", "This is not really an address.", "Home"));
+*/
   }
 }
