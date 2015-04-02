@@ -1,4 +1,5 @@
-@(contactForm: Form[views.formdata.ContactFormData], telephoneTypeMap: Map[String, Boolean])
+@(contactForm: Form[views.formdata.ContactFormData], telephoneTypeMap: Map[String, Boolean],
+  dietMap: Map[String, Boolean])
 
 @import helper._
 @import views.html.bootstrap3._
@@ -25,6 +26,9 @@
       @text(contactForm("address"),
             label = "Address",
             placeholder = "Enter your address")
+      @checkboxes(contactForm("dietTypes"),
+                  label="Diet",
+                  checkboxMap = dietMap)            
 
       <button id="submit" type="submit" class="btn btn-primary">Submit</button>
     }
