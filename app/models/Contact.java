@@ -135,7 +135,7 @@ public class Contact {
     }
 
     if (s.length() > 0) {
-      s.substring(0, s.length() - 2);
+      s = s.substring(0, s.length() - 2);
     }
 
     return s;
