@@ -63,7 +63,7 @@ public class IntegrationTest {
       public void invoke(TestBrowser browser) {
         browser.maximizeWindow();
 
-        // Add new contact
+        // Add new Contact
         NewContactPage newContact = new NewContactPage(browser.getDriver(), PORT);
         browser.goTo(newContact);
         newContact.isAt();
@@ -73,8 +73,11 @@ public class IntegrationTest {
         String address = "This is not really an address, just a placeholder.";
         String telephoneType = "Mobile";
 
+        // Submits the form
         newContact.submitForm(firstName, lastName, phoneNumber, address, telephoneType);
 
+
+        // Verifies that the new Contact is properly added
         IndexPage index = new IndexPage(browser.getDriver(), PORT);
         browser.goTo(index);
         index.isAt();
