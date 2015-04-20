@@ -1,6 +1,7 @@
 package views.formdata;
 
 import models.Contact;
+import models.DietType;
 import play.data.validation.ValidationError;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class ContactFormData {
    * The diet types of the contact.
    *
    */
-  public List<String> dietTypes = new ArrayList<>();  
+  public List<String> dietTypes = new ArrayList<>();
 
   /**
    * Creates a new ContactFormData instance.
@@ -60,7 +61,7 @@ public class ContactFormData {
    */
 
   public ContactFormData() {
-    this(new Contact(0, "", "", "", "", "", new ArrayList<String>()));
+    this(new Contact(0, "", "", "", "", null, new ArrayList<DietType>()));
   }
 
   /**
@@ -76,8 +77,12 @@ public class ContactFormData {
     this.lastName = toCreate.getLastName();
     this.phoneNumber = toCreate.getPhoneNumber();
     this.address = toCreate.getAddress();
-    this.telephoneType = toCreate.getTelephoneType();
-    this.dietTypes = toCreate.getDietTypes();
+    this.telephoneType = (toCreate.getTelephoneType() == null) ? ("")
+        : (toCreate.getTelephoneType().getTelephoneType());
+
+    for (DietType type : toCreate.getDietTypes()) {
+      this.dietTypes.add(type.getDietType());
+    }
   }
 
   /**
@@ -104,12 +109,12 @@ public class ContactFormData {
       errors.add(new ValidationError("address", "Invalid address"));
     }
     if ((this.telephoneType == null) || (!TelephoneTypes.isType(this.telephoneType))) {
-      errors.add(new ValidationError("telephoneType", "Invalid telephone type"));
+      errors.add(new ValidationError("telephoneType", "Invalid telephone type; was \"" + this.telephoneType + "\""));
     }
     if ((this.dietTypes == null) || (!DietTypes.isType(this.dietTypes))) {
       errors.add(new ValidationError("dietTypes", "Invalid diet type"));
     }
-    
+
     return (errors.isEmpty()) ? (null) : (errors);
   }
 }

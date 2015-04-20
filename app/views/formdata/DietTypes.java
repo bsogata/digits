@@ -1,5 +1,7 @@
 package views.formdata;
 
+import models.DietType;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -78,11 +80,12 @@ public class DietTypes {
    * false otherwise.
    */
 
-  public static boolean isType(List<String> toCheck) {
-    for (String type : toCheck) {
-      if (!DietTypes.isType(type)) {
-        return false;
-      }
+  public static boolean isType(List<?> toCheck) {
+    for (Object type : toCheck) {
+      if (((type instanceof String) && (!DietTypes.isType(type.toString()))
+          || ((type instanceof DietType) && (!DietTypes.isType(((DietType) type).getDietType()))))) {
+          return false;
+        }
     }
     return true;
   }

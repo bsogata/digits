@@ -76,7 +76,6 @@ public class IntegrationTest {
         // Submits the form
         newContact.submitForm(firstName, lastName, phoneNumber, address, telephoneType);
 
-
         // Verifies that the new Contact is properly added
         IndexPage index = new IndexPage(browser.getDriver(), PORT);
         browser.goTo(index);

@@ -15,6 +15,19 @@ public class ContactDB {
   private static long lastId = 5;
 
   /**
+   * Stores the valid telephone types.
+   *
+   */
+  private static Map<String, TelephoneType> telephoneTypes = new HashMap<>();
+
+  /**
+   * Stores the valid diet types.
+   *
+   */
+  private static Map<String, DietType> dietTypes = new HashMap<>();
+
+
+  /**
    * Adds the given Contact to this ContactDB if valid.
    *
    * @param toAdd    The Contact to add to this ContactDB.
@@ -78,4 +91,67 @@ public class ContactDB {
   public static void deleteContact(long id) {
     ContactDB.contacts.remove(id);
   }
+
+  /**
+   * Adds a DietType to the database.
+   *
+   * @param toAdd    The DietType to add to the ContactDB.
+   *
+   */
+
+  public static void addDietType(DietType toAdd) {
+    ContactDB.dietTypes.put(toAdd.getDietType(), toAdd);
+  }
+
+  /**
+   * Adds a TelephoneType to the database.
+   *
+   * @param toAdd    The TelephoneType to add to the ContactDB.
+   *
+   */
+
+  public static void addTelephoneType(TelephoneType toAdd) {
+    ContactDB.telephoneTypes.put(toAdd.getTelephoneType(), toAdd);
+  }
+
+  /**
+   * Returns the DietType with the given name.
+   *
+   * @param type    The String containing the name of the DietType to retrieve.
+   *
+   * @return A DietType instance with the given name.
+   *
+   * @throws RuntimeException if no matching DietType instance could be found.
+   *
+   */
+
+  public static DietType getDietType(String type) {
+    if (ContactDB.dietTypes.containsKey(type)) {
+      return ContactDB.dietTypes.get(type);
+    }
+    else {
+      throw new RuntimeException("Invalid diet type");
+    }
+  }
+
+  /**
+   * Returns the TelephoneType with the given name.
+   *
+   * @param type    The String containing the name of the TelephoneType to retrieve.
+   *
+   * @return A TelephoneType instance with the given name.
+   *
+   * @throws RuntimeException if no matching TelephoneType instance could be found.
+   *
+   */
+
+  public static TelephoneType getTelephoneType(String type) {
+    if (ContactDB.telephoneTypes.containsKey(type)) {
+      return ContactDB.telephoneTypes.get(type);
+    }
+    else {
+      throw new RuntimeException("Invalid telephone type");
+    }
+  }
+
 }
