@@ -48,10 +48,10 @@ public class Application extends Controller {
     }
     else {
       ContactFormData data = form.get();
-      ContactDB.addContact(new Contact(0, data.firstName, data.lastName, data.phoneNumber,
-                                          data.address, data.telephoneType, data.dietTypes));
+      ContactDB.addContact(new Contact(data.id, data.firstName, data.lastName, data.phoneNumber,
+                                       data.address, data.telephoneType, data.dietTypes));
       System.out.format("%s %s %s %s %s %s%n", data.firstName, data.lastName, data.phoneNumber,
-                                              data.address, data.telephoneType, data.dietTypes);
+                                               data.address, data.telephoneType, data.dietTypes);
       return ok(NewContact.render(form, TelephoneTypes.getTypes(data.telephoneType),
                                         DietTypes.getTypes(data.dietTypes)));
     }
