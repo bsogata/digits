@@ -13,9 +13,11 @@ import java.util.Map;
 public class ContactDB {
   private static Map<Long, Contact> contacts = new HashMap<>();
   private static long lastId = 5;
+  private static Map<String, TelephoneType> telephoneTypes = new HashMap<>();
+  private static Map<String, DietType> dietTypes = new HashMap<>();
 
   /**
-   * Adds the given Contact to this ContactDB if valid.
+   * Adds the given Contact to the ContactDB if valid.
    *
    * @param toAdd    The Contact to add to this ContactDB.
    *
@@ -44,9 +46,9 @@ public class ContactDB {
   }
 
   /**
-   * Returns the List of Contacts stored in this ContactDB.
+   * Returns the List of Contacts stored in the ContactDB.
    *
-   * @return A List<Contact> of the Contacts stored in this ContactDB.
+   * @return A List<Contact> of the Contacts stored in the ContactDB.
    *
    */
 
@@ -77,5 +79,65 @@ public class ContactDB {
 
   public static void deleteContact(long id) {
     ContactDB.contacts.remove(id);
+  }
+
+  /**
+   * Adds the given DietType to the database.
+   *
+   * @param toAdd    The DietType to add.
+   *
+   */
+
+  public static void addDietType(DietType toAdd) {
+    ContactDB.dietTypes.put(toAdd.getDietType(), toAdd);
+  }
+
+  /**
+   * Adds the given TelephoneType to the database.
+   *
+   * @param toAdd    The TelephoneType to add.
+   *
+   */
+
+  public static void addTelephoneType(TelephoneType toAdd) {
+    ContactDB.telephoneTypes.put(toAdd.getTelephoneType(), toAdd);
+  }
+
+  /**
+   * Returns the DietType with the given name.
+   *
+   * @param type    The String containing the name of the DietType to retrieve.
+   *
+   * @return A DietType with the name provided.
+   *
+   * @throws RuntimeException if no match was found.
+   *
+   */
+
+  public static DietType getDietType(String type) {
+    if (!ContactDB.dietTypes.containsKey(type)) {
+      throw new RuntimeException(type + " is not a valid diet type");
+    }
+
+    return ContactDB.dietTypes.get(type);
+  }
+
+  /**
+   * Returns the TelephoneType with the given name.
+   *
+   * @param type    The String containing the name of the TelephoneType to retrieve.
+   *
+   * @return A TelephoneType with the name provided.
+   *
+   * @throws RuntimeException if no match was found.
+   *
+   */
+
+  public static TelephoneType getTelephoneType(String type) {
+    if (!ContactDB.telephoneTypes.containsKey(type)) {
+      throw new RuntimeException(type + " is not a valid telephone type");
+    }
+
+    return ContactDB.telephoneTypes.get(type);
   }
 }

@@ -1,5 +1,7 @@
 package views.formdata;
 
+import models.DietType;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -71,16 +73,17 @@ public class DietTypes {
   }
 
   /**
-   * Indicates whether the given List of Strings contains valid types of diet.
+   * Indicates whether the given List contains valid diet types.
    *
-   * @param toCheck The String to examine.
-   * @return A boolean that is true if the given String matches a valid diet type,
+   * @param toCheck The List of elements to examine.
+   * @return A boolean that is true if all elements in the given list match a valid diet type,
    * false otherwise.
    */
 
-  public static boolean isType(List<String> toCheck) {
-    for (String type : toCheck) {
-      if (!DietTypes.isType(type)) {
+  public static boolean isType(List<?> toCheck) {
+    for (Object type : toCheck) {
+      if (((type instanceof String) && (!DietTypes.isType(type.toString())))
+          || ((type instanceof DietType) && (!DietTypes.isType(((DietType) type).getDietType())))) {
         return false;
       }
     }

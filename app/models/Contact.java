@@ -16,8 +16,8 @@ public class Contact {
   private String phoneNumber;
   private long id;
   private String address;
-  private String telephoneType;
-  private List<String> dietTypes;
+  private TelephoneType telephoneType;
+  private List<DietType> dietTypes;
 
   /**
    * Creates a new Contact.
@@ -27,13 +27,13 @@ public class Contact {
    * @param lastName         The String containing the last name of the new Contact.
    * @param phoneNumber      The String containing the phone number of the new Contact.
    * @param address          The String containing the address of the new Contact.
-   * @param telephoneType    The String containing the telephone type of the new Contact.
-   * @param dietTypes        The List<String> containing the diet types of the new Contact.
+   * @param telephoneType    The TelephoneType containing the telephone type of the new Contact.
+   * @param dietTypes        The List<DietType> containing the diet types of the new Contact.
    *
    */
 
   public Contact(long id, String firstName, String lastName, String phoneNumber,
-                 String address, String telephoneType, List<String> dietTypes) {
+                 String address, TelephoneType telephoneType, List<DietType> dietTypes) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -105,7 +105,7 @@ public class Contact {
    *
    */
 
-  public String getTelephoneType() {
+  public TelephoneType getTelephoneType() {
     return this.telephoneType;
   }
 
@@ -116,7 +116,7 @@ public class Contact {
    *
    */
 
-  public List<String> getDietTypes() {
+  public List<DietType> getDietTypes() {
     return this.dietTypes;
   }
 
@@ -130,8 +130,8 @@ public class Contact {
   public String getFormattedDietTypes() {
     String s = "";
   
-    for (String type : this.dietTypes) {
-      s += type + ", ";
+    for (DietType type : this.dietTypes) {
+      s += type.getDietType() + ", ";
     }
 
     if (s.length() > 0) {
@@ -153,7 +153,7 @@ public class Contact {
     return (((this.firstName != null) && (this.firstName.length() > 0))
          && ((this.lastName != null) && (this.lastName.length() > 0))
          && ((this.phoneNumber != null) && (this.phoneNumber.matches("\\d{3}-\\d{3}-\\d{4}")))
-         && ((this.telephoneType != null) && (TelephoneTypes.isType(this.telephoneType)))
+         && ((this.telephoneType != null) && (TelephoneTypes.isType(this.telephoneType.getTelephoneType())))
          && ((this.address != null) && (this.address.length() >= 24))
          && ((this.dietTypes != null) && (DietTypes.isType(this.dietTypes))));
   }
