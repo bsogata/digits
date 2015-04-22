@@ -1,5 +1,8 @@
 package models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +11,14 @@ import java.util.List;
  *
  * Created by Branden Ogata on 4/20/2015.
  */
-public class DietType {
+
+@Entity
+public class DietType extends play.db.ebean.Model {
+  @Id
   private long id = 0;
   private String dietType = "";
+
+  @ManyToMany(mappedBy="dietTypes")
   private List<Contact> contacts = new ArrayList<>();
 
   /**
@@ -99,5 +107,13 @@ public class DietType {
 
   public void addContact(Contact toAdd) {
     this.contacts.add(toAdd);
+  }
+
+  /**
+   * The EBean ORM finder method for database queries.
+   * @return The finder method.
+   */
+  public static Finder<Long, DietType> find() {
+    return new Finder<Long, DietType>(Long.class, DietType.class);
   }
 }

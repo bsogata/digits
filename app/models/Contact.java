@@ -4,6 +4,11 @@ import views.formdata.ContactFormData;
 import views.formdata.DietTypes;
 import views.formdata.TelephoneTypes;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,19 +17,26 @@ import java.util.List;
  *
  * Created by Branden Ogata on 3/14/2015.
  */
-public class Contact {
+
+@Entity
+public class Contact extends play.db.ebean.Model {
   private String firstName;
   private String lastName;
   private String phoneNumber;
+
+  @Id
   private long id;
   private String address;
+
+  @ManyToOne(cascade=CascadeType.PERSIST)
   private TelephoneType telephoneType;
+
+  @ManyToMany(cascade=CascadeType.PERSIST)
   private List<DietType> dietTypes;
 
   /**
    * Creates a new Contact.
    *
-   * @param id               The long equal to the ID for the new Contact.
    * @param firstName        The String containing the first name of the new Contact.
    * @param lastName         The String containing the last name of the new Contact.
    * @param phoneNumber      The String containing the phone number of the new Contact.
@@ -34,9 +46,8 @@ public class Contact {
    *
    */
 
-  public Contact(long id, String firstName, String lastName, String phoneNumber,
+  public Contact(String firstName, String lastName, String phoneNumber,
                  String address, TelephoneType telephoneType, List<DietType> dietTypes) {
-    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.phoneNumber = phoneNumber;
@@ -78,6 +89,17 @@ public class Contact {
   }
 
   /**
+   * Sets the ID of this Contact.
+   *
+   * @param id    The long equal to the ID to assign to this Contact.
+   *
+   */
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  /**
    * Returns the first name of this Contact.
    *
    * @return A String containing the first name of this Contact.
@@ -86,6 +108,17 @@ public class Contact {
 
   public String getFirstName() {
     return this.firstName;
+  }
+
+  /**
+   * Sets the first name of this Contact.
+   *
+   * @param firstName    The String containing the first name to assign to this Contact.
+   *
+   */
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
   }
 
   /**
@@ -100,6 +133,17 @@ public class Contact {
   }
 
   /**
+   * Sets the last name of this Contact.
+   *
+   * @param lastName The String containing the last name to assign to this Contact.
+   *
+   */
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  /**
    * Returns the phone number of this Contact.
    *
    * @return A String containing the phone number of this Contact.
@@ -108,6 +152,17 @@ public class Contact {
 
   public String getPhoneNumber() {
     return this.phoneNumber;
+  }
+
+  /**
+   * Sets the phone number of this Contact.
+   *
+   * @param phoneNumber    The String containing the phone number to assign to this Contact.
+   *
+   */
+
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
   }
 
   /**
@@ -122,6 +177,17 @@ public class Contact {
   }
 
   /**
+   * Sets the address of this Contact.
+   *
+   * @param address    The String containing the address to assign to this Contact.
+   *
+   */
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  /**
    * Returns the telephone type of this Contact.
    *
    * @return A String containing the telephone type of this Contact.
@@ -133,14 +199,36 @@ public class Contact {
   }
 
   /**
-   * Returns the telephone type of this Contact.
+   * Sets the telephone type of this Contact.
    *
-   * @return A String containing the telephone type of this Contact.
+   * @param telephoneType    The TelephoneType to assign to this Contact.
+   *
+   */
+
+  public void setTelephoneType(TelephoneType telephoneType) {
+    this.telephoneType = telephoneType;
+  }
+
+  /**
+   * Returns the diet type of this Contact.
+   *
+   * @return A String containing the diet type of this Contact.
    *
    */
 
   public List<DietType> getDietTypes() {
     return this.dietTypes;
+  }
+
+  /**
+   * Sets the diet types of this Contact.
+   *
+   * @param dietTypes    The List<DietTypes> containing the DietTypes to assign to this Contact.
+   *
+   */
+
+  public void setDietTypes(List<DietType> dietTypes) {
+    this.dietTypes = dietTypes;
   }
 
   /**
@@ -179,5 +267,13 @@ public class Contact {
          && ((this.telephoneType != null) && (TelephoneTypes.isType(this.telephoneType.getTelephoneType())))
          && ((this.address != null) && (this.address.length() >= 24))
          && ((this.dietTypes != null) && (DietTypes.isType(this.dietTypes))));
+  }
+
+  /**
+   * The EBean ORM finder method for database queries.
+   * @return The finder method.
+   */
+  public static Finder<Long, Contact> find() {
+    return new Finder<Long, Contact>(Long.class, Contact.class);
   }
 }

@@ -62,7 +62,8 @@ public class ContactFormData {
    */
 
   public ContactFormData() {
-    this(new Contact(0, "", "", "", "", new TelephoneType(""), new ArrayList<DietType>()));
+    this(new Contact("", "", "", "", new TelephoneType(""), new ArrayList<DietType>()));
+    this.id = 0;
   }
 
   /**

@@ -3,9 +3,7 @@ package models;
 import views.formdata.ContactFormData;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Stores the Contacts for this application.
@@ -13,10 +11,6 @@ import java.util.Map;
  * Created by Branden Ogata on 3/14/2015.
  */
 public class ContactDB {
-  private static Map<Long, Contact> contacts = new HashMap<>();
-  private static long lastId = 5;
-  private static Map<String, TelephoneType> telephoneTypes = new HashMap<>();
-  private static Map<String, DietType> dietTypes = new HashMap<>();
 
   /**
    * Adds the given ContactFormData to the ContactDB if valid.
@@ -29,16 +23,44 @@ public class ContactDB {
    */
 
   public static boolean addContact(ContactFormData toAdd) {
-    // If not in the map, add new Contact
+    // If not in the database, add new Contact
     if ((toAdd.validate() == null) && (toAdd.id == 0)) {
-      long id = lastId++;
-      toAdd.id = id;
-      ContactDB.contacts.put(id, new Contact(toAdd));
+      Contact toCreate = new Contact(toAdd);
+      toCreate.save();
+      toCreate.getTelephoneType().addContact(toCreate);
+      List<DietType> dietTypes = new ArrayList<>();
+
+      for (String diet : toAdd.dietTypes) {
+        DietType nextDietType = DietType.find().where().eq("dietType", diet).findUnique();
+        dietTypes.add(nextDietType);
+        nextDietType.addContact(toCreate);
+      }
+
+      toCreate.setDietTypes(dietTypes);
+
       return true;
     }
     // Else if valid and in the map, update value
     else if (toAdd.validate() == null) {
-      ContactDB.contacts.put(toAdd.id, new Contact(toAdd));
+      Contact toUpdate = Contact.find().byId(toAdd.id);
+      toUpdate.setFirstName(toAdd.firstName);
+      toUpdate.setLastName(toAdd.lastName);
+      toUpdate.setPhoneNumber(toAdd.phoneNumber);
+      toUpdate.setAddress(toAdd.address);
+      toUpdate.setTelephoneType(TelephoneType.find().where().eq("telephoneType", toAdd.telephoneType).findUnique());
+
+      List<DietType> dietTypes = new ArrayList<>();
+
+      for (String diet : toAdd.dietTypes) {
+        DietType nextDietType = DietType.find().where().eq("dietType", diet).findUnique();
+        dietTypes.add(nextDietType);
+        nextDietType.addContact(toUpdate);
+      }
+
+      toUpdate.setDietTypes(dietTypes);
+
+      toUpdate.save();
+      toUpdate.getTelephoneType().addContact(toUpdate);
       return true;
     }
     else {
@@ -54,7 +76,7 @@ public class ContactDB {
    */
 
   public static List<Contact> getContacts() {
-    return new ArrayList<Contact>(ContactDB.contacts.values());
+    return Contact.find().all();
   }
 
   /**
@@ -68,7 +90,7 @@ public class ContactDB {
    */
 
   public static Contact getContact(long id) {
-    return ContactDB.contacts.get(id);
+    return Contact.find().byId(id);
   }
 
   /**
@@ -79,7 +101,7 @@ public class ContactDB {
    */
 
   public static void deleteContact(long id) {
-    ContactDB.contacts.remove(id);
+    Contact.find().byId(id).delete();
   }
 
   /**
@@ -90,7 +112,7 @@ public class ContactDB {
    */
 
   public static void addDietType(DietType toAdd) {
-    ContactDB.dietTypes.put(toAdd.getDietType(), toAdd);
+    toAdd.save();
   }
 
   /**
@@ -101,7 +123,7 @@ public class ContactDB {
    */
 
   public static void addTelephoneType(TelephoneType toAdd) {
-    ContactDB.telephoneTypes.put(toAdd.getTelephoneType(), toAdd);
+    toAdd.save();
   }
 
   /**
@@ -116,11 +138,13 @@ public class ContactDB {
    */
 
   public static DietType getDietType(String type) {
-    if (!ContactDB.dietTypes.containsKey(type)) {
+    DietType dietType = DietType.find().where().eq("dietType", type).findUnique();
+
+    if (dietType == null) {
       throw new RuntimeException(type + " is not a valid diet type");
     }
 
-    return ContactDB.dietTypes.get(type);
+    return dietType;
   }
 
   /**
@@ -135,10 +159,13 @@ public class ContactDB {
    */
 
   public static TelephoneType getTelephoneType(String type) {
-    if (!ContactDB.telephoneTypes.containsKey(type)) {
+    TelephoneType telephoneType = TelephoneType.find().where().eq("telephoneType", type).findUnique();
+
+    if (telephoneType == null) {
       throw new RuntimeException(type + " is not a valid telephone type");
     }
 
-    return ContactDB.telephoneTypes.get(type);
+    return telephoneType;
+
   }
 }

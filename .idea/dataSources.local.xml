@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="PostgreSQL - digits@localhost" uuid="eb20f10f-f6ba-4127-8d80-7c5b1bffe5cd">
+      <secret-storage>master_key</secret-storage>
+      <user-name>Branden Ogata</user-name>
+      <schema-pattern>digits.pg_catalog digits.public</schema-pattern>
+      <default-schemas>digits.pg_catalog digits.public</default-schemas>
+    </data-source>
+  </component>
+</project>
