@@ -1,5 +1,7 @@
 package models;
 
+import views.formdata.ContactFormData;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,27 +19,26 @@ public class ContactDB {
   private static Map<String, DietType> dietTypes = new HashMap<>();
 
   /**
-   * Adds the given Contact to the ContactDB if valid.
+   * Adds the given ContactFormData to the ContactDB if valid.
    *
-   * @param toAdd    The Contact to add to this ContactDB.
+   * @param toAdd    The ContactFormData to add to this ContactDB.
    *
-   * @return A boolean that is true if the given Contact is valid,
+   * @return A boolean that is true if the given ContactFormData is valid,
    *                           false otherwise.
    *
    */
 
-  public static boolean addContact(Contact toAdd) {
+  public static boolean addContact(ContactFormData toAdd) {
     // If not in the map, add new Contact
-    if (toAdd.isValid() && toAdd.getId() == 0) {
+    if ((toAdd.validate() == null) && (toAdd.id == 0)) {
       long id = lastId++;
-      ContactDB.contacts.put(id, new Contact(id, toAdd.getFirstName(), toAdd.getLastName(),
-                                             toAdd.getPhoneNumber(), toAdd.getAddress(),
-                                             toAdd.getTelephoneType(), toAdd.getDietTypes()));
+      toAdd.id = id;
+      ContactDB.contacts.put(id, new Contact(toAdd));
       return true;
     }
     // Else if valid and in the map, update value
-    else if (toAdd.isValid()) {
-      ContactDB.contacts.put(toAdd.getId(), toAdd);
+    else if (toAdd.validate() == null) {
+      ContactDB.contacts.put(toAdd.id, new Contact(toAdd));
       return true;
     }
     else {

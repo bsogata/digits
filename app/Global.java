@@ -4,6 +4,7 @@ import models.DietType;
 import models.TelephoneType;
 import play.Application;
 import play.GlobalSettings;
+import views.formdata.ContactFormData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,17 +50,17 @@ public class Global extends GlobalSettings {
     dietTypesThree.add(ContactDB.getDietType("Fish"));
     dietTypesThree.add(ContactDB.getDietType("Beef"));
     dietTypesThree.add(ContactDB.getDietType("Dairy"));
-    ContactDB.addContact(new Contact(1, "Ira", "Fuse", "124-816-3264",
+    ContactDB.addContact(new ContactFormData(new Contact(1, "Ira", "Fuse", "124-816-3264",
                                      "This is not a real address, just a placeholder",
-                                     ContactDB.getTelephoneType("Mobile"), dietTypesOne));
-    ContactDB.addContact(new Contact(2, "Dewey", "Havtoo", "112-358-1321",
+                                     ContactDB.getTelephoneType("Mobile"), dietTypesOne)));
+    ContactDB.addContact(new ContactFormData(new Contact(2, "Dewey", "Havtoo", "112-358-1321",
                                      "This is not a real address, just a placeholder",
-                                     ContactDB.getTelephoneType("Home"), dietTypesTwo));
-    ContactDB.addContact(new Contact(3, "Millie", "Meter", "123-456-7890",
+                                     ContactDB.getTelephoneType("Home"), dietTypesTwo)));
+    ContactDB.addContact(new ContactFormData(new Contact(3, "Millie", "Meter", "123-456-7890",
                                      "This is not a real address, just a placeholder",
-                                     ContactDB.getTelephoneType("Work"), dietTypesThree));
-    ContactDB.addContact(new Contact(4, "Sandy", "Beech", "101-010-1010",
+                                     ContactDB.getTelephoneType("Work"), dietTypesThree)));
+    ContactDB.addContact(new ContactFormData(new Contact(4, "Sandy", "Beech", "101-010-1010",
                                      "This is not a real address, just a placeholder",
-                                     ContactDB.getTelephoneType("Mobile"), dietTypesFour));
+                                     ContactDB.getTelephoneType("Mobile"), dietTypesFour)));
   }
 }

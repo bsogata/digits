@@ -1,8 +1,10 @@
 package models;
 
+import views.formdata.ContactFormData;
 import views.formdata.DietTypes;
 import views.formdata.TelephoneTypes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,6 +43,27 @@ public class Contact {
     this.address = address;
     this.telephoneType = telephoneType;
     this.dietTypes = dietTypes;
+  }
+
+  /**
+   * Creates a new Contact.
+   *
+   * @param data    The ContactFormData containing the data with which to initialize the new Contact.
+   *
+   */
+
+  public Contact(ContactFormData data) {
+    this.id = data.id;
+    this.firstName = data.firstName;
+    this.lastName = data.lastName;
+    this.phoneNumber = data.phoneNumber;
+    this.address = data.address;
+    this.telephoneType = ContactDB.getTelephoneType(data.telephoneType);
+    this.dietTypes = new ArrayList<>();
+
+    for (String diet : data.dietTypes) {
+      this.dietTypes.add(ContactDB.getDietType(diet));
+    }
   }
 
   /**

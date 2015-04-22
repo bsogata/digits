@@ -1,8 +1,6 @@
 package controllers;
 
-import models.Contact;
 import models.ContactDB;
-import models.DietType;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -11,9 +9,6 @@ import views.formdata.TelephoneTypes;
 import views.html.Index;
 import views.html.NewContact;
 import views.formdata.ContactFormData;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Provides controllers for this application.
@@ -52,14 +47,7 @@ public class Application extends Controller {
     }
     else {
       ContactFormData data = form.get();
-      List<DietType> dietTypes = new ArrayList<>();
-
-      for (String type : data.dietTypes) {
-        dietTypes.add(ContactDB.getDietType(type));
-      }
-
-      ContactDB.addContact(new Contact(data.id, data.firstName, data.lastName, data.phoneNumber,
-                                       data.address, ContactDB.getTelephoneType(data.telephoneType), dietTypes));
+      ContactDB.addContact(data);
       System.out.format("%s %s %s %s %s %s%n", data.firstName, data.lastName, data.phoneNumber,
                                                data.address, data.telephoneType, data.dietTypes);
       return ok(NewContact.render(form, TelephoneTypes.getTypes(data.telephoneType),
